@@ -1,0 +1,21 @@
+import Vue from 'vue'
+import 'babel-polyfill' //适配IE9
+import Vuex from 'vuex'
+Vue.use(Vuex);
+
+const state = {
+    name: 'this is vuex store name'
+};
+const mutations = {
+    changeName(state, str) {
+        state.name = str
+    }
+};
+const getters = {};
+const actions = {};
+export default new Vuex.Store({
+    state,
+    mutations,
+    getters,
+    actions
+});
