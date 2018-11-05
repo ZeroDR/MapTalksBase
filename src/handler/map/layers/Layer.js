@@ -24,18 +24,15 @@ const LayerHandle = {
             attributes: {
                 name: 'ZLH'
             }, geometry: {
-                plane: [
-                    [-0.131049, 51.498568],
-                    [-0.107049, 51.498568],
-                    [-0.093049, 51.498568]
-                ],
-                altitude: [100,200,500]
+                plane: [-0.131049, 51.498568],
+                altitude: [100]
             }
         }];
-        let lsSymbol = SymbolHandle.createSymbol(fs, 'line');
+        let lsSymbol = SymbolHandle.createSymbol(fs, 'marker');
+
         return new MapTalks.VectorLayer(id, lsSymbol, {
             enableAltitude : true,        // enable altitude
-            drawAltitude : StyleHandle.createAltitude('polygon'),
+            drawAltitude : undefined,//StyleHandle.createAltitude('polygon'),
             altitudeProperty : 'altitude' // altitude property in properties, default by 'altitude'
         });
     },

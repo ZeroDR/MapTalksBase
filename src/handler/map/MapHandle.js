@@ -29,6 +29,7 @@ const MapHandle = {
         const _this = this;
         map.on('click', (param) => {
         });//点击事件
+
         let layer = LayerHandle.createVectorLayer('test');
         layer && layer.addTo(map);
     },

@@ -8,7 +8,12 @@ const SymbolHandle = {
         switch (type.toUpperCase()) {
             case 'MARKER':
                 features.forEach(f => {
-                    lsSymbol.push(_this.createMarker(f));
+                    lsSymbol.push(_this.createMarker(f, true));
+                });
+                break;
+            case 'UIMARKER':
+                features.forEach(f => {
+                    lsSymbol.push(_this.createUIMarker(f, true));
                 });
                 break;
             case 'LINE':
@@ -40,24 +45,29 @@ const SymbolHandle = {
             drawOnAxis: null,  // force dragging stick on a axis, can be: x, y
             symbol: StyleHandle.createImageStyle(),
             properties: {
+                id: 123,
                 altitude: feature.geometry.altitude
             },
         });
         hasEvent && marker.on('click', (param) => {
-
+            console.log(param);
         });
         return marker;
     },
 
     //创建UIMarker
     //根据html自定义标注
-    createUIMarker(feature,hasEvent=false){
-        let uiMarker = new MapTalks.ui.UIMarker(feature.geometry.plane,{
-            visible:true,
-            draggable:false,
-            single:false,
-            content:'<div></div>'//自定义显示内容
+    createUIMarker(feature, hasEvent = false) {
+        let uiMarker = new MapTalks.ui.UIMarker(feature.geometry.plane, {
+            visible: true,
+            draggable: false,
+            single: false,
+            content: '<div>Hello</div>'//自定义显示内容
         });
+        hasEvent && uiMarker.on('click', (param) => {
+            console.log(param);
+        });
+        return uiMarker;
     },
 
     //创建Line
@@ -75,7 +85,7 @@ const SymbolHandle = {
             drawOnAxis: null,  // force dragging stick on a axis, can be: x, y
             symbol: StyleHandle.createLineStyle(),
             properties: {
-                name:'zlh',
+                name: 'zlh',
                 altitude: feature.geometry.altitude
             },
         });
@@ -147,17 +157,17 @@ const StyleHandle = {
             'lineCap': 'round', //butt, round, square
             'lineDasharray': null,//dasharray, e.g. [10, 5, 5]
             'lineOpacity ': 1,
-            'linePatternFile' : undefined,//图片填充
-            'linePatternDx' : 0,
-            'textName'  : '{name}',//设置文本
-            'textPlacement' : 'vertex',//vertex line
-            'textSize'  : 20,
-            'textDy' : -20,
-            'markerFile'  : undefined,//设置节点图片
-            'markerPlacement' : 'vertex', //vertex, point, vertex-first, vertex-last, center
-            'markerVerticalAlignment' : 'middle',
-            'markerWidth'  : 30,
-            'markerHeight' : 30
+            'linePatternFile': undefined,//图片填充
+            'linePatternDx': 0,
+            'textName': '{name}',//设置文本
+            'textPlacement': 'vertex',//vertex line
+            'textSize': 20,
+            'textDy': -20,
+            'markerFile': undefined,//设置节点图片
+            'markerPlacement': 'vertex', //vertex, point, vertex-first, vertex-last, center
+            'markerVerticalAlignment': 'middle',
+            'markerWidth': 30,
+            'markerHeight': 30
         };
     },
 
@@ -172,19 +182,19 @@ const StyleHandle = {
             'lineCap': 'round', //butt, round, square
             'lineDasharray': null,//dasharray, e.g. [10, 5, 5]
             'lineOpacity ': 1,
-            'shadowBlur' : 0,//曲线平滑
-            'shadowOffsetX' : 0,
-            'shadowOffsetY' : 0,
-            'polygonPatternFile' : undefined,//填充图片
-            'markerType' : undefined,//'ellipse',//节点样式
-            'markerFill' : '#1bbc9b',
-            'markerLineColor' : '#000',
-            'markerWidth' : 30,
-            'markerHeight' : 30,
-            'markerPlacement' : 'vertex', // point, vertex, vertex-first, vertex-last, line
-            'textName' : undefined,//文本
-            'textPlacement' : 'vertex',   // point, vertex, vertex-first, vertex-last, line
-            'textFill' : '#fff'
+            'shadowBlur': 0,//曲线平滑
+            'shadowOffsetX': 0,
+            'shadowOffsetY': 0,
+            'polygonPatternFile': undefined,//填充图片
+            'markerType': undefined,//'ellipse',//节点样式
+            'markerFill': '#1bbc9b',
+            'markerLineColor': '#000',
+            'markerWidth': 30,
+            'markerHeight': 30,
+            'markerPlacement': 'vertex', // point, vertex, vertex-first, vertex-last, line
+            'textName': undefined,//文本
+            'textPlacement': 'vertex',   // point, vertex, vertex-first, vertex-last, line
+            'textFill': '#fff'
         };
     },
 
@@ -197,11 +207,11 @@ const StyleHandle = {
             'markerDx': 0,
             'markerDy': 0,
             'markerOpacity': 1,
-            'textName' : 'm5',
-            'textSize' : 14,
-            'markerHorizontalAlignment' : 'middle', // left, middle(default), right
-            'markerVerticalAlignment' : 'middle',    // top, middle, bottom(default)
-            'markerRotation' : 0, // marker rotation in degree, clock-wise
+            'textName': '',
+            'textSize': 14,
+            'markerHorizontalAlignment': 'middle', // left, middle(default), right
+            'markerVerticalAlignment': 'middle',    // top, middle, bottom(default)
+            'markerRotation': 0, // marker rotation in degree, clock-wise
         };
     },
 
@@ -222,24 +232,24 @@ const StyleHandle = {
             'markerDx': 0,
             'markerDy': 0,
             'markerOpacity': 1,//透明度
-            'markerRotation' : 0, // marker rotation in degree, clock-wise
+            'markerRotation': 0, // marker rotation in degree, clock-wise
         };
     },
 
     //创建SVG标注
-    createSVGStyle(){
+    createSVGStyle() {
         return {
             'markerType': 'path',
-            'markerPath' : '',
-            'markerPathWidth' : 540,
-            'markerPathHeight' : 580,
+            'markerPath': '',
+            'markerPathWidth': 540,
+            'markerPathHeight': 580,
             // 'markerFill': '#6fa8dc', // will override tiger path's style properties
             // 'markerLineColor' : 12,
             'markerWidth': 400,
             'markerHeight': 400,
-            'markerDy' : 200,
-            'markerDx' : 0,
-            'markerRotation' : 0, // marker rotation in degree, clock-wise
+            'markerDy': 200,
+            'markerDx': 0,
+            'markerRotation': 0, // marker rotation in degree, clock-wise
         };
     },
 
@@ -283,7 +293,7 @@ const StyleHandle = {
                 break;
             case 'SINGLE':
             default:
-                colorStyle =  'rgb(135,196,240)';
+                colorStyle = 'rgb(135,196,240)';
                 break;
         }
         return colorStyle;
