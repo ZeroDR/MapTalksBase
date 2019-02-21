@@ -3,7 +3,7 @@ import {LayerHandle} from '@/handler/map/layers/Layer'
 
 const MapHandle = {
     map: undefined,
-    center: [-0.113049, 51.503568],
+    center: [116.37, 39.498568],
     zoom: 14,
     pitch: 60,//上下旋转角度
     bearing: 30,//左右旋转角度

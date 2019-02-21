@@ -257,7 +257,7 @@ const StyleHandle = {
     createAltitude(type) {
         let drawAltitude = undefined;
         switch (type.toUpperCase()) {
-            case 'MARKERLINE':
+            case 'LINE':
                 drawAltitude = {
                     lineWidth: 1,
                     lineColor: '#1bbc9b'
